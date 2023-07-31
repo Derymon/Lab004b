@@ -1,3 +1,6 @@
+//edytyted by 20:33 31-07-2023
+//Version 1.2
+
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -76,7 +79,7 @@ class Board {
     public ArrayList<Pawn> pawns;
     public Dice dice;
     public Pawn winner;
-    public int turnsCounter;
+    private int turnsCounter;
 
     public Board(int M_P) {
         this.pawns = new ArrayList<Pawn>();
@@ -93,6 +96,14 @@ class Board {
 
         for(Pawn pawn : this.pawns) {
             int rollResult = this.dice.roll();
+            if(rollResult==1 && pawn.GetPosition()%2==1)
+            {
+                //Log.info("Wypadła 1 i jest liczba połozenia nieparzysta");
+                rollResult = -this.dice.roll();
+            } else if (rollResult==this.dice.MaxDice && pawn.GetPosition()%7==0) {
+                rollResult+=this.dice.roll();
+                Log.info("Podwojny rzut");
+            }
             pawn.AddPosition(rollResult);
             Log.info(pawn.name + " new position: " + pawn.GetPosition());
 
