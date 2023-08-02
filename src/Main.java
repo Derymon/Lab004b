@@ -1,5 +1,5 @@
-//edytyted by 20:33 31-07-2023
-//Version 1.2
+//edytyted by 16:33 02-08-2023
+//Version 1.21
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -52,12 +52,12 @@ class Pawn {
 
     protected void SetPosition(int Max)
     {
-        position=Max;
+        this.position=Max;
     }
 
     protected void AddPosition(int Step)
     {
-        position+=Step;
+        this.position+=Step;
     }
 
     protected int GetPosition()
@@ -77,16 +77,21 @@ class Board {
     private int max_position = 100;
 
     public ArrayList<Pawn> pawns;
-    public Dice dice;
+    private Dice dice;
     public Pawn winner;
     private int turnsCounter;
 
     public Board(int M_P) {
         this.pawns = new ArrayList<Pawn>();
-        this.dice = null;
+        this.dice = new Dice(0);
         this.winner = null;
         this.turnsCounter = 0;
         SetMaxRoad(M_P);
+    }
+
+    public void SetDice(int MaxD)
+    {
+        this.dice.MaxDice=MaxD;
     }
 
     public void performTurn() throws WinnerWasCalled {
@@ -137,7 +142,7 @@ public class Main {
         //dorobic pobranie zagrywanej kości;
         Log.info("Podaj wielkość kości:");//pobranie długości ścieżki;
         A = scan.nextInt();
-        board.dice = new Dice(A);
+        board.SetDice(A);
 
         Random rand = new Random();
         int LiczbaGraczy = rand.nextInt(7) + 3;
